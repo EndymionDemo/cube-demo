@@ -15,17 +15,19 @@
         var cyl = endymion.cylinder()
                               .setScale({x:1, y:1, z:1})
                               .setRotation({x:45, y:45, z:0})
-                              .setColor({r:0, g:255, b:0, a:1})
+                              .setColor('lime')
                               .render();
         var xr = 45;
         setInterval(() => {
           xr = xr + 10;
           endymion.with(cube)
                   .setRotX(xr)
+                  .setColor(rgba(0,0,255,0.3))
                   .apply();
 
           endymion.with(cyl)
                   .setRotY(xr)
+                  .setColor(rgb(0,255,255))
                   .apply();
 
         }, 500);
