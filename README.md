@@ -46,7 +46,7 @@ npm install
 npm run start   
 
 ```
-
+Ensure that your smartphone and your computer are connected to same wifi/LAN        
 And Finally scan QR Code that appear in terminal with Endymion Browser App and visualize assets
 
 
