@@ -21,7 +21,8 @@ For run demo you have to perform this step:
 
 
 
-2 - Install on your computer Docker download available here: [Docker Download](https://docs.docker.com/desktop/)
+2 - Install on your computer Docker,         
+    download available here: [Docker Download](https://docs.docker.com/desktop/)
 
 3 - open your computer firewall for 8080 tcp port   
 for linux
