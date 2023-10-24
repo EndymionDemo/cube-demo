@@ -15,13 +15,15 @@ AR cube (and other object) positionig, painting and animate example using Endymi
 ## Getting Started
 
 For run demo you have to perform this step:   
-1 - Download with your device (Android) the Endymion Browser apk scanning this qr code (registration is required)   
+
+1 - Download with your device (Android) the Endymion Browser apk scanning this qr code and clicking on "Download Beta"        
+    (registration is required)   
 
 ![Endymion Browser](https://endymion.tech/endymion-address-qrcode-300x300.png)      
 
 
 
-2 - Install on your computer Docker download available here: [Docker Download](https://docs.docker.com/desktop/)
+2 - Install Docker on your computer, download available here: [Docker Download](https://docs.docker.com/desktop/)
 
 3 - open your computer firewall for 8080 tcp port   
 for linux
@@ -44,7 +46,7 @@ npm install
 npm run start   
 
 ```
-
+Ensure that your smartphone and your computer are connected to same wifi/LAN        
 And Finally scan QR Code that appear in terminal with Endymion Browser App and visualize assets
 
 
