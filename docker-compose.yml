@@ -2,7 +2,7 @@ version: "3.9"
 services:
     frontend2:
       image: nginx:1.17.3-alpine
-      container_name: first-demo
+      container_name: cube-demo
       volumes:
         - "./demo/:/usr/share/nginx/html/"
       ports:
