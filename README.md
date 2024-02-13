@@ -19,7 +19,7 @@ For run demo you have to perform this step:
 1 - Download with your device (Android) the Endymion Browser apk scanning this qr code and clicking on "Download Beta"        
     (registration is required)   
 
-![Endymion Browser](https://endymion.tech/endymion-address-qrcode-300x300.png)      
+![Endymion Browser](https://endymion.tech/qr-code-address/endymion.tech_300x300.png)    
 
 
 
@@ -60,75 +60,72 @@ To stop demo
 In Demo folder there are 3 files        
 1 - index.html - host our code      
 2 - index.arsd - tell Endymion Browser some view settings       
-3 - endymion.js - endymion library code
+3 - endymion.2.3.0.js - endymion library code
 
 Lets explore index.html
 ```html
 <!DOCTYPE html>
 <html>
-  <head>
-      <title>Home</title>
-      <script src="endymion.js"></script>
+
+<head>
+  <title>Home</title>
+  <script src="endymion.2.3.0.js"></script>
 </head>
-  <body>
-    <!-- 
-        there is no tags in body, but it's a simple example, stay tuned for html part!
-    -->
-    <script>
-        // ask to endymion library to generate a cube
-        var cube = endymion.cube()
-                              //set cube scale
-                              .setScale({x:1, y:1, z:1})
-                              // set rotation config using degree
-                              .setRotation({x:45, y:45, z:0})
-                              // set color config using object
-                              .setColor({r:255, g:0, b:0, a:1})
-                              //ask to endymion library to render cube configured
-                              .render();
 
-        // we also ask endymion library to generate a cube using
-        // var cube = endymion.cube().render() istruction
-        // default value are setted
+<body>
+  <script>
+    // get primitives instance from endymion library
+    let cube = en.cube();
+    let cyl = en.cylinder();
 
-        // same consideration for other entity like cylinder
-        var cyl = endymion.cylinder()
-                              .setScale({x:1, y:1, z:1})
-                              .setRotation({x:45, y:45, z:0})
 
-                              // setColor method accept variuos format for color
-                              // like { r:number, g:number, b:number , a:number} object
-                              // '#FFFFFF' exadecimal format
-                              // 'rgba(255, 255, 30, 0.7)' string
-                              // 'rgb(255, 30, 10)' string
-                              // rgba function with r,g,b,a parameters
-                              // rgb function with r,g,b parameter
-                              // 'colorName' string all 143 html named color
+    let cylColor = 'red';
+    var step = 5
+    var startRotation = 45;
 
-                              //using color name
-                              .setColor('lime')
-                              .render();
-        var xr = 45;
+    //subscribe clicked observable of cylinder
+    //to change color on click
+    cyl.clicked$.subscribe(() => {
+      cylColor = cylColor === 'red' ? 'blue' : 'red';
+      cyl.setColor(cylColor).apply();
+    });
 
-        //here we do a simple animation using 
-        setInterval(() => {
-          xr = xr + 10;
-          endymion.with(cube)
-                  .setRotX(xr)
-                  //example of using rgba function
-                  .setColor(rgba(0,0,255,0.3))
-                  //apply method is used apply modifications
-                  .apply();
+    //subscribe clicked observable of cube
+    //for change rotation on click
+    cube.clicked$.subscribe(() => {
+      step = step > 0 ? -5 : 5;
+    });
 
-          endymion.with(cyl)
-                  .setRotY(xr)
-                  //example of use rgb function
-                  .setColor(rgb(0,255,255))
-                  .apply();
+    //subscribe create observable of cube to 
+    //start rotation 
+    cube.created$.subscribe(() => {
+      setInterval(() => {
+        cube.addRot(step, 0, 0).apply();
+      }, 1000);
+    });
 
-        }, 500);
-        
-    </script>
-  </body>
+    //set entity clickable
+    cyl.setClickable(true)
+      //add 45 degrees rotation to default value = 0
+      .addRot(0, 45, 0)
+      //ask endymion browser to create a cylinder
+      .create();
+
+    //set entity clickable
+    cube.setClickable(true)
+      //set absolute position to x=1, y=1, z=1
+      //where measure unity is marker side lenght
+      .setPos(1, 1, 1)
+      //set x and y rotation to 45 degrees
+      .setRot(45, 45, 0)
+      //set lime for entity color
+      .setColor('lime')
+      //ask endymion browser to create a cube
+      .create();
+
+  </script>
+</body>
+
 </html>
 ```
 

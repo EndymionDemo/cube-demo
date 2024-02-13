@@ -1,37 +1,48 @@
 <!DOCTYPE html>
 <html>
-  <head>
-      <title>Home</title>
-      <script src="endymion.js"></script>
+
+<head>
+  <title>Home</title>
+  <script src="endymion.2.3.0.js"></script>
 </head>
-  <body>
-    <script>
-        var cube = endymion.cube()
-                              .setScale({x:1, y:1, z:1})
-                              .setRotation({x:45, y:45, z:0})
-                              .setColor({r:255, g:0, b:0, a:1})
-                              .render();
 
-        var cyl = endymion.cylinder()
-                              .setScale({x:1, y:1, z:1})
-                              .setRotation({x:45, y:45, z:0})
-                              .setColor('lime')
-                              .render();
-        var xr = 45;
-        setInterval(() => {
-          xr = xr + 10;
-          endymion.with(cube)
-                  .setRotX(xr)
-                  .setColor(rgba(0,0,255,0.3))
-                  .apply();
+<body>
+  <script>
 
-          endymion.with(cyl)
-                  .setRotY(xr)
-                  .setColor(rgb(0,255,255))
-                  .apply();
+    let cube = en.cube();
+    let cyl = en.cylinder();
 
-        }, 500);
-        
-    </script>
-  </body>
+
+    let cylColor = 'red';
+    var step = 5
+    var startRotation = 45;
+
+    cyl.clicked$.subscribe(() => {
+      cylColor = cylColor === 'red' ? 'blue' : 'red';
+      cyl.setColor(cylColor).apply();
+    });
+
+    cube.clicked$.subscribe(() => {
+      step = step > 0 ? -5 : 5;
+    });
+
+    cube.created$.subscribe(() => {
+      setInterval(() => {
+        cube.addRot(step, 0, 0).apply();
+      }, 1000);
+    });
+
+    cyl.setClickable(true)
+      .addRot(0, 45, 0)
+      .create();
+
+    cube.setClickable(true)
+      .setPos(1, 1, 1)
+      .setRot(45, 45, 0)
+      .setColor('lime')
+      .create();
+
+  </script>
+</body>
+
 </html>
