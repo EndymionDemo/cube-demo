@@ -122,7 +122,6 @@ Lets explore index.html
       .setColor('lime')
       //ask endymion browser to create a cube
       .create();
-
   </script>
 </body>
 
